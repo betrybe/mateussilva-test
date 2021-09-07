@@ -2,16 +2,16 @@ from .simple_report import SimpleReport
 
 
 class CompleteReport(SimpleReport):
-    def __init__(self, lista):
-        super().__init__(lista)
-
     # Utilizar mesma lógica de SimpleReport, mas agora adicionar a quantidade
     # de produtos por empresa ao final
-    def generate(self):
+    def generate(lista):
         qtd_prod_por_empresa = {}
-        relatorio = super().generate() + "\n\nProdutos estocados por empresa:"
-        qtd_prod_por_empresa = CompleteReport.sum_qtd_prod(self.lista)
+        relatorio = (
+            SimpleReport.generate(lista)
+            + "\nProdutos estocados por empresa: \n"
+        )
+        qtd_prod_por_empresa = CompleteReport.sum_qtd_prod(lista)
 
         for empresa, qtd in qtd_prod_por_empresa.items():
-            relatorio = relatorio + "\n- {0}: {1}".format(empresa, qtd)
+            relatorio = relatorio + "- {0}: {1}\n".format(empresa, qtd)
         return relatorio
