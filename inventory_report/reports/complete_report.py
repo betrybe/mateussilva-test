@@ -1,12 +1,10 @@
-from .simple_report import SimpleReport
+from simple_report import SimpleReport
 
 
 class CompleteReport(SimpleReport):
     def __init__(self, lista):
         super().__init__(lista)
 
-    # Utilizar mesma lógica de SimpleReport, mas agora adicionar a quantidade
-    # de produtos por empresa ao final
     def generate(self):
         qtd_prod_por_empresa = {}
         relatorio = super().generate() + "\n\nProdutos estocados por empresa:"

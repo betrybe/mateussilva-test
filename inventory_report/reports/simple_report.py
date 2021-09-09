@@ -20,15 +20,12 @@ class SimpleReport:
     # Função para validar a data de fabricação mais antiga e a data de validade
     # mais proxima dentro de uma lista de produtos
     # retornando essas datas
+
     def check_fab_val(lista):
         dt_fab = dt_val = dt_now = datetime.now()
         for produto in lista:
-            dt_fab_inlist = datetime.strptime(
-                produto["data_de_fabricacao"], "%Y-%m-%d"
-            )
-            dt_val_inlist = datetime.strptime(
-                produto["data_de_validade"], "%Y-%m-%d"
-            )
+            dt_fab_inlist = datetime.strptime(produto["data_de_fabricacao"], "%Y-%m-%d")
+            dt_val_inlist = datetime.strptime(produto["data_de_validade"], "%Y-%m-%d")
             if produto == lista[0]:
                 dt_fab = dt_fab_inlist
                 dt_val = dt_val_inlist
@@ -41,6 +38,7 @@ class SimpleReport:
 
     # Função para comparar qual empresa possui maior quantidade de produtos
     # retornando o nome dessa empresa
+
     def ckeck_prod_empresa(qtd_prod_por_empresa):
         maior_qtd_prod = 0
         for empresa, qtd_produtos in qtd_prod_por_empresa.items():
@@ -55,15 +53,9 @@ class SimpleReport:
         # Validando datas de valiade e fabricação
         dt_fab, dt_val = SimpleReport.check_fab_val(self.lista)
         # Comparando estoques
-        empresa_mais_prod = SimpleReport.ckeck_prod_empresa(
-            qtd_prod_por_empresa
-        )
+        empresa_mais_prod = SimpleReport.ckeck_prod_empresa(qtd_prod_por_empresa)
 
         relatorio = """Data de fabricação mais antiga: {0}
 Data de validade mais próxima: {1}
-Empresa com maior quantidade de produtos estocados: {2}""".format(
-            dt_fab.strftime("%Y-%m-%d"),
-            dt_val.strftime("%Y-%m-%d"),
-            empresa_mais_prod,
-        )
+Empresa com maior quantidade de produtos estocados: {2}""".format(dt_fab.strftime("%Y-%m-%d"), dt_val.strftime("%Y-%m-%d"), empresa_mais_prod)
         return relatorio
