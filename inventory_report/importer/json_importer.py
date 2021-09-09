@@ -9,11 +9,11 @@ from .importer import Importer
 
 
 class JsonImporter(Importer):
-    def import_data(caminho_arquivo):
+    def import_data(self, caminho_arquivo):
         try:
             with open(caminho_arquivo) as arquivo:
                 if caminho_arquivo[-5:] == ".json":
                     return json.load(arquivo)
                 raise ValueError
-        except ValueError:
-            raise ValueError("Arquivo inválido")
+        except ValueError as ex:
+            print("Arquivo inválido")

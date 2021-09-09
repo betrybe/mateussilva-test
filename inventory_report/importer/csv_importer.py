@@ -9,7 +9,7 @@ from .importer import Importer
 
 
 class CsvImporter(Importer):
-    def import_data(caminho_arquivo):
+    def import_data(self, caminho_arquivo):
         try:
             with open(caminho_arquivo) as arquivo:
                 if caminho_arquivo[-4:] == ".csv":
@@ -24,5 +24,5 @@ class CsvImporter(Importer):
                             report_data.append(report_item)
                     return report_data
                 raise ValueError
-        except ValueError:
-            raise ValueError("Arquivo inválido")
+        except ValueError as ex:
+            print("Arquivo inválido")

@@ -2,6 +2,9 @@ from datetime import datetime
 
 
 class SimpleReport:
+    def __init__(self, lista):
+        self.lista = lista
+
     # Função para somar todas os produtos de uma mesma empresa e retorna um
     # dicionário com esses valores {"nome_da_empresa":"quantidade_de_produtos"}
     def sum_qtd_prod(lista):
@@ -46,11 +49,11 @@ class SimpleReport:
                 empresa_maior_estoque = empresa
         return empresa_maior_estoque
 
-    def generate(lista):
+    def generate(self):
         # Sumarizando quantidades de produtos por empresa
-        qtd_prod_por_empresa = SimpleReport.sum_qtd_prod(lista)
+        qtd_prod_por_empresa = SimpleReport.sum_qtd_prod(self.lista)
         # Validando datas de valiade e fabricação
-        dt_fab, dt_val = SimpleReport.check_fab_val(lista)
+        dt_fab, dt_val = SimpleReport.check_fab_val(self.lista)
         # Comparando estoques
         empresa_mais_prod = SimpleReport.ckeck_prod_empresa(
             qtd_prod_por_empresa
@@ -58,10 +61,9 @@ class SimpleReport:
 
         relatorio = """Data de fabricação mais antiga: {0}
 Data de validade mais próxima: {1}
-Empresa com maior quantidade de produtos estocados: {2}\n""".format(
+Empresa com maior quantidade de produtos estocados: {2}""".format(
             dt_fab.strftime("%Y-%m-%d"),
             dt_val.strftime("%Y-%m-%d"),
             empresa_mais_prod,
         )
-
         return relatorio

@@ -17,9 +17,7 @@ def main():
         if len(args) != 3:
             raise getopt.error("Verifique os argumentos")
         caminho_arquivo, tipo_relatorio = args[1:]
-
-        # Verificar qual classe utilizar para cada tipo de arquivo e criar a
-        # lista de dicionários
+        # Verificar qual classe utilizar para cada tipo de arquivo
         if caminho_arquivo[-4:] == ".csv":
             instance = InventoryRefactor(CsvImporter)
         elif caminho_arquivo[-5:] == ".json":
@@ -27,9 +25,17 @@ def main():
         elif caminho_arquivo[-4:] == ".xml":
             instance = InventoryRefactor(XmlImporter)
 
-        # Gerar relatório a partir da instancia
-        relatorio = instance.import_data(caminho_arquivo, tipo_relatorio)
+        # Gerar a lista de dicionários
+        report_data = instance.import_data(caminho_arquivo)
 
+        # Gerar relatórios
+        if tipo_relatorio == "simples":
+            relatorio = SimpleReport(report_data).generate()
+        elif tipo_relatorio == "completo":
+            relatorio = CompleteReport(report_data).generate()
+        else:
+            raise getopt.error("Verifique os argumentos")
+        # Mostrar relatório
         print(relatorio)
 
     except getopt.error as err:

@@ -12,9 +12,9 @@ from reports.complete_report import CompleteReport
 
 
 class Inventory:
-    # def __init__(self):
-    #     self.caminho_arquivo = caminho_arquivo
-    #     self.tipo_relatorio = tipo_relatorio
+    def __init__(self, caminho_arquivo, tipo_relatorio):
+        self.caminho_arquivo = caminho_arquivo
+        self.tipo_relatorio = tipo_relatorio
 
     def make_from_csv(arquivo):
         report_data = []
@@ -42,17 +42,17 @@ class Inventory:
             report_data.append(report_item)
         return report_data
 
-    def import_data(caminho_arquivo, tipo_relatorio):
+    def import_data(self):
         report_data = []
-        with open(caminho_arquivo) as arquivo:
-            if caminho_arquivo[-4:] == ".csv":
+        with open(self.caminho_arquivo) as arquivo:
+            if self.caminho_arquivo[-4:] == ".csv":
                 report_data = Inventory.make_from_csv(arquivo)
-            elif caminho_arquivo[-5:] == ".json":
+            elif self.caminho_arquivo[-5:] == ".json":
                 report_data = Inventory.make_from_json(arquivo)
-            elif caminho_arquivo[-4:] == ".xml":
+            elif self.caminho_arquivo[-4:] == ".xml":
                 report_data = Inventory.make_from_xml(arquivo)
-        if tipo_relatorio == "simples":
-            relatorio = SimpleReport.generate(report_data)
-        elif tipo_relatorio == "completo":
-            relatorio = CompleteReport.generate(report_data)
+        if self.tipo_relatorio == "simples":
+            relatorio = SimpleReport(report_data).generate()
+        elif self.tipo_relatorio == "completo":
+            relatorio = CompleteReport(report_data).generate()
         return relatorio

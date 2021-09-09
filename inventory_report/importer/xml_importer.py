@@ -9,7 +9,7 @@ from .importer import Importer
 
 
 class XmlImporter(Importer):
-    def import_data(caminho_arquivo):
+    def import_data(self, caminho_arquivo):
         try:
             with open(caminho_arquivo) as arquivo:
                 if caminho_arquivo[-4:] == ".xml":
@@ -22,6 +22,6 @@ class XmlImporter(Importer):
                             report_item[element.tag] = element.text
                         report_data.append(report_item)
                     return report_data
-                raise ValueError
-        except ValueError:
-            raise ValueError("Arquivo inválido")
+                raise ValueError("Arquivo inválido")
+        except ValueError as ex:
+            print(ex.mensagem)
