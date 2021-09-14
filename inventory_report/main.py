@@ -15,7 +15,7 @@ def main():
     try:
         # Verificar argumentos passados por linha de comando
         if len(args) != 3:
-            raise getopt.error("Verifique os argumentos")
+            raise getopt.error("Verifique os argumentos.")
         caminho_arquivo, tipo_relatorio = args[1:]
 
         # Verificar qual classe utilizar para cada tipo de arquivo e criar a
